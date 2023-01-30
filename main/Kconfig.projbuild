@@ -11,10 +11,10 @@ endmenu
 menu "Mender client Configuration"
 
     config MENDER_DEVICE_TYPE
-		string "Mender server host URL"
+		string "Mender device type"
 		default "mender-esp32-ota"
 		help
-			Set the Mender server host URL to be used on the device.
+			Set the device type string for Mender. This defines the board compatibility.
 
     config MENDER_SERVER_HOST
         string "Mender server host URL"
