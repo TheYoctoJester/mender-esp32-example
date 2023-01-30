@@ -30,7 +30,9 @@ file(STRINGS ${CMAKE_SOURCE_DIR}/VERSION PROJECT_VER LIMIT_COUNT 1)
 set_property(DIRECTORY . APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/VERSION)
 
 # Extra components
-set(EXTRA_COMPONENT_DIRS $ENV{IDF_PATH}/examples/common_components/protocol_examples_common)
+set(EXTRA_COMPONENT_DIRS
+	$ENV{IDF_PATH}/examples/common_components/protocol_examples_common
+	$ENV{IDF_PATH}/examples/common_components/led_strip)
 
 # Declare project
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)

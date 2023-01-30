@@ -24,5 +24,8 @@
 # SOFTWARE.
 
 idf_component_register(
-    SRCS "main.c"
+    SRCS
+		"main.c"
+		"mender-glue.c"
+		"stats.c"
 )
