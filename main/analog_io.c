@@ -71,5 +71,5 @@ void run_analog_io(void)
 
     /* start analog_io task */
     ESP_LOGI(TAG, "starting analog io task");
-    xTaskCreate(analog_io_task, "analog_io_task", 200, NULL, 10, NULL);
+    xTaskCreate(analog_io_task, "analog_io_task", 2048, NULL, 10, NULL);
 }

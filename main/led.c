@@ -89,5 +89,5 @@ void run_led(void)
 
     /* start LED blinking task */
     ESP_LOGI(TAG, "starting LED blink task");
-    xTaskCreate(LED_strip_task, "LED_strip_task", 200, NULL, 10, NULL);
+    xTaskCreate(LED_strip_task, "LED_strip_task", 2048, NULL, 10, NULL);
 }

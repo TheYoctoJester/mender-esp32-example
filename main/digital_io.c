@@ -133,7 +133,7 @@ void run_digital_io(void)
     gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
     //start gpio task
     ESP_LOGI(TAG, "starting digital input task");
-    xTaskCreate(gpio_task_example, "gpio_task_example", 200, NULL, 10, NULL);
+    xTaskCreate(gpio_task_example, "gpio_task_example", 2048, NULL, 10, NULL);
 
     //install gpio isr service
     gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
@@ -144,5 +144,5 @@ void run_digital_io(void)
 
     /* start analog_io task */
     ESP_LOGI(TAG, "starting digital output task");
-    xTaskCreate(relay_task, "relay_task", 200, NULL, 10, NULL);
+    xTaskCreate(relay_task, "relay_task", 2048, NULL, 10, NULL);
 }
