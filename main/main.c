@@ -63,6 +63,11 @@ app_main(void) {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
+    /* configure IO for demo application and run demo in separate task 
+	 * this happens before WiFi and Mender for usability purposes
+	 */
+    run_demo();
+
     /* This helper function configures Wi-Fi or Ethernet, as selected in menuconfig.
      * Read "Establishing Wi-Fi or Ethernet Connection" section in
      * examples/protocols/README.md for more information about this function.
@@ -71,9 +76,6 @@ app_main(void) {
 
 	/* Start the Mender client */
 	init_mender_client();
-
-    /* configure IO for demo application and run demo in separate task */
-    run_demo();
 
 	/* all tasks are running, print final heap stats */
     printf("Minimum free heap size: %d bytes\n", esp_get_minimum_free_heap_size());
