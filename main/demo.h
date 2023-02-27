@@ -1,6 +1,6 @@
 /**
- * @file      display.h
- * @brief     Code to operate the OLED on the Mender-ESP32 demo board
+ * @file      demo.h
+ * @brief     Demonstration application on the Mender-ESP32 demo board
  *
  * MIT License
  *
@@ -25,13 +25,13 @@
  * SOFTWARE.
  */
 
-#ifndef __DISPLAY_H_
-#define __DISPLAY_H_
+#ifndef __DEMO_H_
+#define __DEMO_H_
 
 /**
- * @brief Initialize LEDs and start a blinking thread
+ * @brief Initialize stuff and run the demo task
  * @return nothing
  */
-void run_display();
+void run_demo();
 
-#endif /* __DISPLAY_H_ */
+#endif /* __DEMO_H_ */

@@ -37,13 +37,8 @@
 #include "sdkconfig.h"
 
 /* project includes */
-#include "analog_io.h"
-#include "digital_io.h"
-#include "display.h"
-#include "led.h"
 #include "mender-glue.h"
-#include "stats.h"
-#include "uart.h"
+#include "demo.h"
 /**
  * @brief Tag used for logging
  */
@@ -77,16 +72,8 @@ app_main(void) {
 	/* Start the Mender client */
 	init_mender_client();
 
-    /* configure LED strip and run task to blink it */
-    run_led();
-    /* configure LED strip and run task to blink it */
-    run_display();
-    /* configure ADC and run task to read it */
-    run_analog_io();
-    /* configure digital io and run task to handle it */
-    run_digital_io();
-    /* configure uart and run task to handle it */
-    run_uart();
+    /* configure IO for demo application and run demo in separate task */
+    run_demo();
 
 	/* all tasks are running, print final heap stats */
     printf("Minimum free heap size: %d bytes\n", esp_get_minimum_free_heap_size());
@@ -97,6 +84,6 @@ app_main(void) {
         vTaskDelay(pdMS_TO_TICKS(10000));
 
         /* Print stats */
-        print_stats();
+        //print_stats();
     }
 }
