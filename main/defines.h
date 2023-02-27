@@ -28,6 +28,8 @@
 #ifndef __DEFINES_H_
 #define __DEFINES_H_
 
+#undef DEMO_VERSION
+#define DEMO_VERSION                1
 
 /* ADC Channels */
 #define ADC1_EXAMPLE_CHAN0          ADC1_CHANNEL_0

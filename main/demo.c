@@ -53,6 +53,9 @@ static
 uint32_t neopixel_map = 0x00;
 
 static
+uint32_t relay_state = 0;
+
+static
 void init_IO()
 {
 	/* analog IO - ADC1 config */
@@ -155,10 +158,22 @@ void init_NeoPixel()
 }
 
 static
+void toggle_Relay()
+{
+	relay_state = (relay_state + 1) % 2;
+}
+
+static
 void update_Display(char const * s)
 {
     ssd1306_draw_string(ssd1306_dev, 32, 16, (uint8_t const *)"Mender-", 12, 1);
+#if DEMO_VERSION == 1
     ssd1306_draw_string(ssd1306_dev, 32, 28, (uint8_t const *)"ESP32 V1.0", 12, 1);
+#elif DEMO_VERSION == 2
+    ssd1306_draw_string(ssd1306_dev, 32, 28, (uint8_t const *)"ESP32 V2.0", 12, 1);
+#else
+#error "Meh!"
+#endif
     ssd1306_draw_string(ssd1306_dev, 32, 40, (uint8_t const *)s, 12, 1);
     ssd1306_refresh_gram(ssd1306_dev);
 }
@@ -189,6 +204,7 @@ void color_task()
     while (1) {
 		switch (state)
 		{
+#if DEMO_VERSION == 1
 			case 1:
 				neopixel_map = 0b00000001;
 				break;
@@ -204,6 +220,26 @@ void color_task()
 			case 5:
 				neopixel_map = 0b00000100;
 				break;
+#elif DEMO_VERSION == 2
+			case 1:
+				neopixel_map = 0b00000001;
+				break;
+			case 2:
+				neopixel_map = 0b00000010;
+				break;
+			case 3:
+				neopixel_map = 0b00000100;
+				break;
+			case 4:
+				neopixel_map = 0b00000010;
+				break;
+			case 5:
+				neopixel_map = 0b00000001;
+				toggle_Relay();
+				break;
+#else
+#error "Meh!"
+#endif
 			default:
 				neopixel_map = 0b00000000;
 				state = 0;
@@ -217,7 +253,6 @@ void color_task()
 static
 void demo_task()
 {
-	uint32_t relay_state = 0;
 	uint32_t neopixel_brightness = 50;
 	char s[16];
 
@@ -228,7 +263,7 @@ void demo_task()
 				switch (encoder_event)
 				{
 					case ENCODER_EVENT_PUSH:
-						relay_state = (relay_state + 1) % 2;
+						toggle_Relay();
 						break;
 
 					case ENCODER_EVENT_LEFT:
