@@ -37,13 +37,8 @@
 #include "sdkconfig.h"
 
 /* project includes */
-#include "analog_io.h"
-#include "digital_io.h"
-#include "display.h"
-#include "led.h"
 #include "mender-glue.h"
-#include "stats.h"
-#include "uart.h"
+#include "demo.h"
 /**
  * @brief Tag used for logging
  */
@@ -68,6 +63,11 @@ app_main(void) {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
+    /* configure IO for demo application and run demo in separate task 
+	 * this happens before WiFi and Mender for usability purposes
+	 */
+    run_demo();
+
     /* This helper function configures Wi-Fi or Ethernet, as selected in menuconfig.
      * Read "Establishing Wi-Fi or Ethernet Connection" section in
      * examples/protocols/README.md for more information about this function.
@@ -76,17 +76,6 @@ app_main(void) {
 
 	/* Start the Mender client */
 	init_mender_client();
-
-    /* configure LED strip and run task to blink it */
-    run_led();
-    /* configure LED strip and run task to blink it */
-    run_display();
-    /* configure ADC and run task to read it */
-    run_analog_io();
-    /* configure digital io and run task to handle it */
-    run_digital_io();
-    /* configure uart and run task to handle it */
-    run_uart();
 
 	/* all tasks are running, print final heap stats */
     printf("Minimum free heap size: %d bytes\n", esp_get_minimum_free_heap_size());
@@ -97,6 +86,6 @@ app_main(void) {
         vTaskDelay(pdMS_TO_TICKS(10000));
 
         /* Print stats */
-        print_stats();
+        //print_stats();
     }
 }

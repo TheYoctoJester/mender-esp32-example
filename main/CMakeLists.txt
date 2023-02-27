@@ -25,12 +25,7 @@
 
 idf_component_register(
     SRCS
-		"analog_io.c"
-		"digital_io.c"
-		"display.c"
-		"led.c"
+		"demo.c"
 		"main.c"
 		"mender-glue.c"
-		"stats.c"
-		"uart.c"
 )
